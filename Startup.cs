@@ -49,6 +49,13 @@ namespace PoolSystemAPI
                 c.IncludeXmlComments(xpath);
             });
             services.AddSingleton<ILoggerService, LoggerService>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                    builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
             services.AddControllers();
         }
 
@@ -75,6 +82,8 @@ namespace PoolSystemAPI
             });
 
             app.UseHttpsRedirection();
+
+            app.UseCors("CorsPolicy");
 
             app.UseRouting();
 
