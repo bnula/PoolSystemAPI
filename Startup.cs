@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PoolSystemAPI.Data;
+using PoolSystemAPI.Logger;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -47,6 +48,7 @@ namespace PoolSystemAPI
                 var xpath = Path.Combine(AppContext.BaseDirectory, xfile);
                 c.IncludeXmlComments(xpath);
             });
+            services.AddSingleton<ILoggerService, LoggerService>();
             services.AddControllers();
         }
 
