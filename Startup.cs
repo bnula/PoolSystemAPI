@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using PoolSystemAPI.Data;
 using PoolSystemAPI.Logger;
 using PoolSystemAPI.Mappings;
+using PoolSystemAPI.Ticket;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -50,6 +51,7 @@ namespace PoolSystemAPI
                 c.IncludeXmlComments(xpath);
             });
             services.AddAutoMapper(typeof(Maps));
+            services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddSingleton<ILoggerService, LoggerService>();
             services.AddCors(options =>
             {
@@ -58,7 +60,8 @@ namespace PoolSystemAPI
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

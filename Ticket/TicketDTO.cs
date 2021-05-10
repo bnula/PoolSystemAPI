@@ -8,10 +8,9 @@ namespace PoolSystemAPI.Ticket
     public class TicketDTO
     {
         public int TicketId { get; set; }
-        public int PoolId { get; set; }
+        public int? PoolId { get; set; }
         public int Charges { get; set; }
         public DateTime EntryTime { get; set; }
         public DateTime ExitTime { get; set; }
-        public bool Active { get; set; }
     }
 }

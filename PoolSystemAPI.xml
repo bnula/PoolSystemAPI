@@ -4,5 +4,30 @@
         <name>PoolSystemAPI</name>
     </assembly>
     <members>
+        <member name="T:PoolSystemAPI.Ticket.EntryController">
+            <summary>
+            Endpoint for interacting with Tickets when entering
+            </summary>
+        </member>
+        <member name="M:PoolSystemAPI.Ticket.EntryController.UpdateEntry(PoolSystemAPI.Ticket.TicketDTO,System.Int32)">
+            <summary>
+            Call to validate and update ticket record based on ticketId
+            </summary>
+            <param name="Ticket"></param>
+            <param name="ticketId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PoolSystemAPI.Ticket.ExitController">
+            <summary>
+            Endpoint for interacting with Tickets when leaving
+            </summary>
+        </member>
+        <member name="M:PoolSystemAPI.Ticket.ExitController.UpdateEntry(System.Int32)">
+            <summary>
+            call to log exit time
+            </summary>
+            <param name="ticketId"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
