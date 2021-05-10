@@ -7,10 +7,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using PoolSystemAPI.Data;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace PoolSystemAPI
@@ -32,6 +35,18 @@ namespace PoolSystemAPI
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1.0", new OpenApiInfo
+                {
+                    Title = "Pool System API",
+                    Version = "v1.0",
+                    Description = "API for ticketing system for Swimming Pools"
+                });
+                var xfile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xpath = Path.Combine(AppContext.BaseDirectory, xfile);
+                c.IncludeXmlComments(xpath);
+            });
             services.AddControllers();
         }
 
@@ -49,6 +64,13 @@ namespace PoolSystemAPI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "Pool System API");
+                c.RoutePrefix = "";
+            });
 
             app.UseHttpsRedirection();
 
