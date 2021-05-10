@@ -12,5 +12,6 @@ namespace PoolSystemAPI.Ticket
         public int Charges { get; set; }
         public DateTime EntryTime { get; set; }
         public DateTime ExitTime { get; set; }
+        public bool Active { get; set; }
     }
 }

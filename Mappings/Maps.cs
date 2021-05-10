@@ -11,7 +11,7 @@ namespace PoolSystemAPI.Mappings
     {
         public Maps()
         {
-            CreateMap<Ticket.Ticket, TicketDTO>();
+            CreateMap<Ticket.Ticket, TicketDTO>().ReverseMap();
         }
     }
 }
